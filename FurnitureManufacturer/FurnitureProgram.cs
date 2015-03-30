@@ -1,10 +1,6 @@
 ﻿namespace FurnitureManufacturer
 {
-    using System;
-    using System.Collections.Generic;
     using Engine;
-    using FurnitureManufacturer.Models;
-    using FurnitureManufacturer.Engine.Factories;
 
     public class FurnitureProgram
     {

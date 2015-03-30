@@ -1,10 +1,10 @@
 ﻿namespace FurnitureManufacturer.Engine.Factories
 {
     using System;
-
     using Interfaces;
     using Interfaces.Engine;
     using Models;
+    using System.Linq;
 
     public class FurnitureFactory : IFurnitureFactory
     {
@@ -15,33 +15,30 @@
 
         public ITable CreateTable(string model, string materialType, decimal price, decimal height, decimal length, decimal width)
         {
-
-            MaterialType materialEnum = GetMaterialType(materialType);
-            Table newTable = new Table(model, materialEnum, price, height, length, width);
-            
-            return newTable;
+            MaterialType enumMaterials = GetMaterialType(materialType.ToLower());
+            Table newTable = new Table(model, enumMaterials ,price, height, length, width);
+            return newTable; 
         }
 
         public IChair CreateChair(string model, string materialType, decimal price, decimal height, int numberOfLegs)
         {
-            MaterialType materialEnum = GetMaterialType(materialType);
-            Chair newChair = new Chair(model, materialEnum, price, height, numberOfLegs);
-            return newChair;
-
+            MaterialType enumMaterials = GetMaterialType(materialType.ToLower());
+            Chair newTable = new Chair(model, enumMaterials, price, height, numberOfLegs);
+            return newTable; 
         }
 
         public IAdjustableChair CreateAdjustableChair(string model, string materialType, decimal price, decimal height, int numberOfLegs)
         {
-            MaterialType materialEnum = GetMaterialType(materialType);
-            AdjustableChair newChair = new AdjustableChair(model, materialEnum, price, height, numberOfLegs);
-            return newChair;
+            MaterialType enumMaterials = GetMaterialType(materialType.ToLower());
+            AdjustableChair newTable = new AdjustableChair(model, enumMaterials, price, height, numberOfLegs);
+            return newTable; 
         }
 
         public IConvertibleChair CreateConvertibleChair(string model, string materialType, decimal price, decimal height, int numberOfLegs)
         {
-            MaterialType materialEnum = GetMaterialType(materialType);
-            ConvertibleChair newChair = new ConvertibleChair(model, materialEnum, price, height, numberOfLegs);
-            return newChair;
+            MaterialType enumMaterials = GetMaterialType(materialType.ToLower());
+            ConvertibleChair newTable = new ConvertibleChair(model, enumMaterials, price, height, numberOfLegs);
+            return newTable; 
         }
 
         private MaterialType GetMaterialType(string material)

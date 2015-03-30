@@ -1,63 +1,60 @@
 ﻿namespace FurnitureManufacturer.Models
 {
     using System;
-    using System.Text;
     using System.Collections.Generic;
     using FurnitureManufacturer.Interfaces;
-    using FurnitureManufacturer.Interfaces.Engine;
+    using System.Text;
     using System.Linq;
 
     public class Company : ICompany
     {
-        #region fields
-        private const int regNumberSize = 10;
+        private const int regNumberFixedSize = 10;
 
         private string name;
-        private string registrationNum;
+        private string registrationNumber;
         private List<IFurniture> furnitures;
 
-        #endregion
-
-        #region Constructors
-        public Company(string name, string registrationNum)
+        public Company(string name, string regNumber)
         {
             this.Name = name;
-            this.RegistrationNumber = registrationNum;
-            this.furnitures = new List<IFurniture>(); ;
+            this.RegistrationNumber = regNumber;
+            this.furnitures = new List<IFurniture>(); // remember this
         }
-        #endregion
 
+        /*
+ * Company validity rules:
+    •	Adding duplicate furniture is allowed.
+    •	Removing furniture removes the first occurance. If such is not found, nothing happens.
+    •	Finding furniture by model gets the first occurance. If such is not found, return null. Searching is case insensitive.
+        Companies should only be created through the ICompanyFactory implemented by a class named CompanyFactory. Furniture should only be created through the IFurnitureFactory implemented by a class named FurnitureFactory. Both classes are in the FurnitureManufacturer.Engine.Factories namespace.
+
+ */
+
+        // TODO: Write all needed classes by implementing the interfaces in this namespace. You may delete this class
         #region Properties
-        public string Name 
+        public string Name
         {
             get { return this.name; }
-            private set 
+            set
             {
                 if (string.IsNullOrEmpty(value) || value.Length < 5)
                 {
-                    throw new ArgumentNullException("Company name value can not be null or less then 5 symbols");
+                    throw new ArgumentException("Name value can not be null or less then 5 symbols");
                 }
-                this.name = value; 
-            } 
+                this.name = value;
+            }
         }
 
         public string RegistrationNumber
         {
-            get { return this.registrationNum; }
-            private set 
+            get { return this.registrationNumber; }
+            set
             {
-                if (value.Length != regNumberSize)
+                if ((value.Length != regNumberFixedSize) || !NumbersCheck(value)) // check this later
                 {
-                    throw new ArgumentOutOfRangeException("Registration number must be EXACTLY 10 Numerical symbols");
+                    throw new ArgumentException("Registration number must contain exactly 10 Numerical symbols!");
                 }
-                for (int i = 0; i < value.Length; i++)
-                {
-                    if (!char.IsDigit(value[i]))
-                    {
-                        throw new ArgumentException("Only numerical symbols allowed for Registration number");
-                    }
-                }
-                this.registrationNum = value; 
+                this.registrationNumber = value;
             }
         }
 
@@ -65,26 +62,24 @@
         {
             get { return this.furnitures; }
         }
-
         #endregion
 
         #region Methods
-
-
         public void Add(IFurniture furniture)
         {
             this.furnitures.Add(furniture);
         }
 
-        public void Remove(IFurniture furniture)
+        public void Remove(IFurniture furn)
         {
-            if (this.Furnitures.Contains(furniture))
+            if (this.furnitures.Count > 0) // (this.Furnitures.Contains(furniture))  // check this if the first is not working
             {
-                this.furnitures.Remove(furniture);
+                this.furnitures.Remove(furn);
             }
         }
 
-        public IFurniture Find(string model)
+        //	Finding furniture by model gets the first occurance. If such is not found, return null. Searching is case insensitive.
+        public IFurniture Find(string model) 
         {
             foreach (var furn in furnitures)
             {
@@ -98,16 +93,18 @@
 
         public string Catalog()
         {
-            StringBuilder sb = new StringBuilder();
+            /*The listed furniture added to a certain company (through the Add(…) method) should be ordered by price then by model. 
 
-            sb.AppendFormat("{0} - {1} - ",this.Name , this.RegistrationNumber);
-            if (this.furnitures.Count <= 0 )
+             */
+            StringBuilder sb = new StringBuilder();
+            sb.Append(string.Format("{0} - {1} - ", this.Name, this.RegistrationNumber));
+            if (this.Furnitures.Count <= 0)
             {
                 sb.Append("no furnitures");
             }
-            else if (this.furnitures.Count  == 1)
+            else if (this.Furnitures.Count == 1)
             {
-                sb.Append("1 furniture");
+                sb.AppendLine("1 furniture");
                 foreach (var furn in furnitures)
                 {
                     sb.Append(furn.ToString());
@@ -115,25 +112,39 @@
             }
             else
             {
-                sb.AppendFormat("{0} furnitures\n", this.Furnitures.Count);
+                sb.AppendLine(string.Format("{0} furnitures",this.Furnitures.Count));
+                var orderedFurn = furnitures.OrderBy(f => f.Price).ThenBy(f => f.Model);
                 int index = 0;
-                var orderedFurniteres = furnitures.OrderBy(x => x.Price).ThenBy(x => x.Model);
-                foreach (var furn in orderedFurniteres)
+                foreach (var furn in orderedFurn)
                 {
-                    index++;
-                    sb.AppendFormat("{0}", furn.ToString());
-                    if (index != orderedFurniteres.Count())
+                    if (index < orderedFurn.Count() - 1)
                     {
-                        sb.AppendLine();
+                        sb.AppendLine(furn.ToString());
+                    }
+                    else
+                    {
+                        sb.Append(furn.ToString());
                     }
 
+                    index++;
                 }
             }
+
             return sb.ToString();
         }
-
-
+        public bool NumbersCheck(string input)
+        {
+            bool areAllNumbers = true;
+            foreach (var ch in input)
+            {
+                if (!char.IsDigit(ch))
+                {
+                    areAllNumbers = false;
+                    break;
+                }
+            }
+            return areAllNumbers;
+        }
         #endregion
-
     }
 }

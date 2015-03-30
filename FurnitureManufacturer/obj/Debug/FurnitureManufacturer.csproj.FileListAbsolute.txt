@@ -1,6 +1,5 @@
-D:\TELERIK\C# Part Three OOP\EXAM Furniture\1. Furniture_Скелет на решението (1)\FurnitureManufacturer\bin\Debug\Furnitures.exe.config
-D:\TELERIK\C# Part Three OOP\EXAM Furniture\1. Furniture_Скелет на решението (1)\FurnitureManufacturer\bin\Debug\Furnitures.exe
-D:\TELERIK\C# Part Three OOP\EXAM Furniture\1. Furniture_Скелет на решението (1)\FurnitureManufacturer\bin\Debug\Furnitures.pdb
-D:\TELERIK\C# Part Three OOP\EXAM Furniture\1. Furniture_Скелет на решението (1)\FurnitureManufacturer\obj\Debug\Furnitures.exe
-D:\TELERIK\C# Part Three OOP\EXAM Furniture\1. Furniture_Скелет на решението (1)\FurnitureManufacturer\obj\Debug\Furnitures.pdb
-D:\TELERIK\C# Part Three OOP\EXAM Furniture\1. Furniture_Скелет на решението (1)\FurnitureManufacturer\obj\Debug\FurnitureManufacturer.csprojResolveAssemblyReference.cache
+D:\TELERIK\C# Part Three OOP\EXAM Furniture\FURNITURE New Test\FurnitureManufacturer\bin\Debug\Furnitures.exe.config
+D:\TELERIK\C# Part Three OOP\EXAM Furniture\FURNITURE New Test\FurnitureManufacturer\bin\Debug\Furnitures.exe
+D:\TELERIK\C# Part Three OOP\EXAM Furniture\FURNITURE New Test\FurnitureManufacturer\bin\Debug\Furnitures.pdb
+D:\TELERIK\C# Part Three OOP\EXAM Furniture\FURNITURE New Test\FurnitureManufacturer\obj\Debug\Furnitures.exe
+D:\TELERIK\C# Part Three OOP\EXAM Furniture\FURNITURE New Test\FurnitureManufacturer\obj\Debug\Furnitures.pdb
